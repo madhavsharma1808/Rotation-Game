@@ -32,7 +32,7 @@ public class ButtonControl : MonoBehaviour
     }
     public void LoadLevel()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Tutorial");
     }
     public void ExitGame()
     {
