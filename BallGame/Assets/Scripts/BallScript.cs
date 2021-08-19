@@ -21,11 +21,11 @@ public class BallScript : MonoBehaviour
 
         dir.x = -Input.acceleration.x;
         dir.z = -Input.acceleration.y;
-
+        dir.y = 0;
         // clamp acceleration vector to unit sphere
         if (dir.sqrMagnitude > 1)
             dir.Normalize();
-
+        
         // Make it move 10 meters per second instead of 10 meters per frame...
         dir *= Time.deltaTime;
 
