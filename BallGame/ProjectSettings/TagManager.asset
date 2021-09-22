@@ -7,6 +7,7 @@ TagManager:
   - Lose
   - Win
   - Normal
+  - Falling
   layers:
   - Default
   - TransparentFX

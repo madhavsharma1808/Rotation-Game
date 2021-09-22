@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallScript : MonoBehaviour
 {
@@ -22,14 +23,14 @@ public class BallScript : MonoBehaviour
         dir.x = -Input.acceleration.x;
         dir.z = -Input.acceleration.y;
         dir.y = 0;
-        // clamp acceleration vector to unit sphere
+        
         if (dir.sqrMagnitude > 1)
             dir.Normalize();
         
-        // Make it move 10 meters per second instead of 10 meters per frame...
+        
         dir *= Time.deltaTime;
 
-        // Move object
+       
         transform.Translate(dir * speed);
     }
 
@@ -45,6 +46,18 @@ public class BallScript : MonoBehaviour
             print("Game Over");
             loseEffect.Play();
         }
+    }
+    IEnumerator EndTutorial()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("Level1");
+    }
+
+    IEnumerator RestartTutorial()
+    {
+        Destroy(this.gameObject, 1);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Tutorial");
     }
 
 }

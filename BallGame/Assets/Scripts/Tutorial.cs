@@ -9,6 +9,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] ParticleSystem loseEffect;
     [SerializeField] GameObject mobileTilt;
     [SerializeField] GameObject goToGreenBlock;
+    Rigidbody rb;
     int flag = 0;
     float speed = 5f;
 
@@ -16,11 +17,11 @@ public class Tutorial : MonoBehaviour
     void Update()
     {
         MoveObject();
-
     }
 
      void Start()
     {
+        rb = this.GetComponent<Rigidbody>();
         goToGreenBlock.SetActive(false);
         StartCoroutine(GoToGreen());
     }
@@ -39,14 +40,15 @@ public class Tutorial : MonoBehaviour
         dir.z = -Input.acceleration.y;
         dir.y = 0;
         
-        if (dir.sqrMagnitude > 1)
-            dir.Normalize();
+       // if (dir.sqrMagnitude > 1)
+         //   dir.Normalize();
 
-        
+
         dir *= Time.deltaTime;
 
-        
+
         transform.Translate(dir * speed);
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -55,13 +57,31 @@ public class Tutorial : MonoBehaviour
         {
             print("Next Level");
             winEffect.Play();
-            SceneManager.LoadScene("Level1");
+            StartCoroutine(EndTutorial());
         }
         else if (collision.gameObject.tag == "Lose")
         {
             print("Game Over");
             loseEffect.Play();
-            SceneManager.LoadScene("Tutorial");
+            StartCoroutine(RestartTutorial());
         }
+        else if(collision.gameObject.tag == "Falling")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+   
+    }
+    
+
+    IEnumerator EndTutorial()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
+
+    IEnumerator RestartTutorial()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
