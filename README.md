@@ -1,4 +1,4 @@
-# MoveIt
+# BalanceIt
 
 MoveIt is a mobile game for Android Users. It will launch on PlayStore on 28 September 2021.
 
